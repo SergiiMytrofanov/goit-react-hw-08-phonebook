@@ -27,13 +27,8 @@ const App = () => {
   }, [dispatch]);
 
   const handleAddContact = (newContact) => {
-    if (!newContact.name || !newContact.number) {
-      alert("Ім'я та номер телефону мають бути заповнені.");
-      return;
-    }
-
     const existingName = contacts.find(
-      (contact) => contact.name && contact.name.toLowerCase() === newContact.name.toLowerCase()
+      (contact) => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
 
     const existingNumber = contacts.find(
@@ -52,7 +47,6 @@ const App = () => {
 
     dispatch(addContact({ ...newContact, id: nanoid() }));
   };
-
 
   const handleDeleteContact = (id) => {
     dispatch(deleteContact(id));
