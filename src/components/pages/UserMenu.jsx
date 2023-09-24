@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from '../redux/authSlice'; 
+import { logoutUser } from '../redux/authSlice';
 import { Link } from 'react-router-dom';
 
 const UserMenu = () => {
@@ -8,7 +8,6 @@ const UserMenu = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-
     dispatch(logoutUser());
   };
 

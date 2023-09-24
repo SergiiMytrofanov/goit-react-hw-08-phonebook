@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../redux/authSlice';
+
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -24,7 +25,7 @@ const RegistrationForm = () => {
 
     dispatch(registerUser(formData))
       .then(() => {
-        history.push('/login'); 
+        history('/login');
       })
       .catch((error) => {
         console.error('Registration failed', error);

@@ -17,11 +17,14 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (userDat
     }
 
     const data = await response.json();
+
+    localStorage.setItem('token', data.token);
     return data;
   } catch (error) {
     throw new Error('Registration failed: ' + error.message);
   }
 });
+
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (userData) => {
   try {
@@ -39,6 +42,8 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userData) => 
     }
 
     const data = await response.json();
+
+    localStorage.setItem('token', data.token);
     return data;
   } catch (error) {
     throw new Error('Login failed: ' + error.message);
@@ -48,6 +53,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userData) => 
 
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 
+  localStorage.removeItem('token');
   return null;
 });
 
@@ -86,7 +92,7 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        state.user = null; 
+        state.user = null;
       });
   },
 });
