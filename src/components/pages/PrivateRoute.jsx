@@ -1,15 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const user = useSelector((state) => state.auth.user);
-
+const PrivateRoute = ({ component: Component, user, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        user ? <Component {...props} /> : window.location.replace("/login")
+        user ? <Component {...props} user={user} /> : window.location.replace("/login")
       }
     />
   );
