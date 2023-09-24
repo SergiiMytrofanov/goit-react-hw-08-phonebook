@@ -74,6 +74,7 @@ const contactSlice = createSlice({
   },
 });
 
+
 export const { setFilter, toggleSearchByPhone } = contactSlice.actions;
 
 export default contactSlice.reducer;
