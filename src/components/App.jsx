@@ -79,7 +79,7 @@ const App = () => {
         <h1 className={styles.header}>Телефонна книга</h1>
         <Route path="/register" component={RegistrationForm} />
         <Route path="/login" component={LoginForm} />
-        <PrivateRoute path="/contacts" component={ContactForm} user={user} />
+        <PrivateRoute path="/contacts" component={() => <ContactForm addContact={handleAddContact} />} user={user} />
         <div className={styles.contactContainer}>
           <h2 className={styles.subHeader}>Контакти</h2>
           <p className={styles.searchHeader}>Пошук за іменем або номером телефону</p>
