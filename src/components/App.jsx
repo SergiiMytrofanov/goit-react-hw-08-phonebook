@@ -20,12 +20,12 @@ import {
 } from './redux/contactSlice';
 
 const App = () => {
+  const user = useSelector((state) => state.auth.user);
   const contacts = useSelector((state) => state.contacts.items);
   const filter = useSelector((state) => state.contacts.filter);
   const searchByPhone = useSelector((state) => state.contacts.searchByPhone);
   const isLoading = useSelector((state) => state.contacts.isLoading);
   const error = useSelector((state) => state.contacts.error);
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const App = () => {
         <h1 className={styles.header}>Телефонна книга</h1>
         <Route path="/register" component={RegistrationForm} />
         <Route path="/login" component={LoginForm} />
-        <PrivateRoute path="/contacts" component={() => <ContactForm addContact={handleAddContact} />} user={user} />
+        <PrivateRoute path="/contacts" component={ContactForm} user={user} />
         <div className={styles.contactContainer}>
           <h2 className={styles.subHeader}>Контакти</h2>
           <p className={styles.searchHeader}>Пошук за іменем або номером телефону</p>
