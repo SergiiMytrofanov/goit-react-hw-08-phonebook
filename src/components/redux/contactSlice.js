@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
-  const response = await fetch('https://64fc19e5605a026163ae2eac.mockapi.io/api/v1/contacts');
+  const response = await fetch('https://connections-api.herokuapp.com/contacts');
   if (!response.ok) {
     throw new Error('Unable to fetch contacts');
   }
@@ -11,7 +11,7 @@ export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
 });
 
 export const addContact = createAsyncThunk('contacts/addContact', async (newContact) => {
-  const response = await fetch('https://64fc19e5605a026163ae2eac.mockapi.io/api/v1/contacts', {
+  const response = await fetch('https://connections-api.herokuapp.com/contacts', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const addContact = createAsyncThunk('contacts/addContact', async (newCont
 });
 
 export const deleteContact = createAsyncThunk('contacts/deleteContact', async (id) => {
-  const response = await fetch(`https://64fc19e5605a026163ae2eac.mockapi.io/api/v1/contacts/${id}`, {
+  const response = await fetch(`https://connections-api.herokuapp.com//contacts/{contactId}`, {
     method: 'DELETE',
   });
   if (!response.ok) {

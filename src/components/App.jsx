@@ -1,9 +1,14 @@
-
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'; // Видалено імпорт Switch
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './FilterItem/FilterItem';
+import RegistrationForm from './pages/RegistrationForm';
+import LoginForm from './pages/LoginForm';
+import UserMenu from './pages/UserMenu';
+import PrivateRoute from './pages/PrivateRoute';
+
 import styles from './App.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -20,6 +25,7 @@ const App = () => {
   const searchByPhone = useSelector((state) => state.contacts.searchByPhone);
   const isLoading = useSelector((state) => state.contacts.isLoading);
   const error = useSelector((state) => state.contacts.error);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -67,27 +73,32 @@ const App = () => {
   );
 
   return (
-    <div className={styles.adressBookContainer}>
-      <h1 className={styles.header}>Телефонна книга</h1>
-      <ContactForm addContact={handleAddContact} />
-      <div className={styles.contactContainer}>
-        <h2 className={styles.subHeader}>Контакти</h2>
-        <p className={styles.searchHeader}>Пошук за іменем або номером телефону</p>
-        <Filter
-          filter={filter}
-          onChange={handleFilterChange}
-          onToggleSearchByPhone={handleToggleSearchByPhone}
-          searchByPhone={searchByPhone}
-        />
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
-          <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
-        )}
+    <Router>
+      <div className={styles.adressBookContainer}>
+        <UserMenu />
+        <h1 className={styles.header}>Телефонна книга</h1>
+        <Route path="/register" component={RegistrationForm} />
+        <Route path="/login" component={LoginForm} />
+        <PrivateRoute path="/contacts" component={ContactForm} user={user} />
+        <div className={styles.contactContainer}>
+          <h2 className={styles.subHeader}>Контакти</h2>
+          <p className={styles.searchHeader}>Пошук за іменем або номером телефону</p>
+          <Filter
+            filter={filter}
+            onChange={handleFilterChange}
+            onToggleSearchByPhone={handleToggleSearchByPhone}
+            searchByPhone={searchByPhone}
+          />
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error: {error}</p>
+          ) : (
+            <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
+          )}
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
