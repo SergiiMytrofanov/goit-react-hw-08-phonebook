@@ -26,7 +26,7 @@ export const addContact = createAsyncThunk('contacts/addContact', async (newCont
 });
 
 export const deleteContact = createAsyncThunk('contacts/deleteContact', async (id) => {
-  const response = await fetch(`https://connections-api.herokuapp.com//contacts/{contactId}`, {
+  const response = await fetch(`https://connections-api.herokuapp.com/contacts/{contactId}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
