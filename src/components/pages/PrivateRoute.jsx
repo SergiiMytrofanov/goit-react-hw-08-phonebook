@@ -12,7 +12,7 @@ import {
 import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
 import Filter from '../FilterItem/FilterItem';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const PrivateRoute = () => {
   const user = useSelector((state) => state.auth.user);
@@ -66,11 +66,11 @@ const PrivateRoute = () => {
       : contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  if (!user) {
-
-    navigate('/login');
-    return null;
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/goit-react-hw-08-phonebook/login');
+    }
+  }, [user, navigate]);
 
   return (
     <div>

@@ -21,8 +21,8 @@ const UserMenu = () => {
         </div>
       ) : (
         <div>
-          <Link to="/goit-react-hw-08-phonebook/register">Реєстрація</Link>
-          <Link to="/goit-react-hw-08-phonebook/login">Логін</Link>
+          <Link to="/register">Реєстрація</Link>
+          <Link to="/login">Логін</Link>
         </div>
       )}
       {<Outlet />}
