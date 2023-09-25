@@ -1,34 +1,34 @@
 import React from 'react';
-import styles from './FilterItem.module.css';
+import { Box, Checkbox, Input } from '@chakra-ui/react';
 
 const Filter = ({ filter, onChange, onToggleSearchByPhone, searchByPhone }) => {
   return (
-    <div className={styles.filterForm}>
-       <label className={styles.filterNumberSearch}>
-        <input
-          type="checkbox"
-          checked={searchByPhone}
-          onChange={onToggleSearchByPhone}
-        />Пошук за номером телефону</label>
-        <input
-        className={styles.filterFormInput}
-        type="text"
-        name="filter"
-        placeholder="Пошук за іменем/прізвищем"
-        value={filter}
-        onChange={onChange}
-        hidden={searchByPhone}
-      />
-      <input
-        className={styles.filterFormInput}
-        type="text"
-        name="filterPhone"
-        placeholder="Пошук телефону"
-        value={filter}
-        onChange={onChange}
-        hidden={!searchByPhone}
-      />
-    </div>
+    <Box>
+      <Checkbox
+        isChecked={searchByPhone}
+        onChange={onToggleSearchByPhone}
+        mb={2}
+      >
+        Пошук за номером телефону
+      </Checkbox>
+      {!searchByPhone ? (
+        <Input
+          type="text"
+          name="filter"
+          placeholder="Пошук за іменем/прізвищем"
+          value={filter}
+          onChange={onChange}
+        />
+      ) : (
+        <Input
+          type="text"
+          name="filterPhone"
+          placeholder="Пошук телефону"
+          value={filter}
+          onChange={onChange}
+        />
+      )}
+    </Box>
   );
 };
 

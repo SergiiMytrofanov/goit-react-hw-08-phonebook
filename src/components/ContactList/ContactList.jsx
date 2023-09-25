@@ -1,14 +1,18 @@
 import React from 'react';
 import ContactItem from '../ContactItem/ContactItem';
-import styles from './ContactList.module.css'
+import { Box, UnorderedList, ListItem } from '@chakra-ui/react';
 
 const ContactList = ({ contacts, onDeleteContact }) => {
   return (
-    <ol className={styles.contactList}>
-      {contacts.map((contact) => (
-        <ContactItem key={contact.id} contact={contact} onDeleteContact={onDeleteContact} />
-      ))}
-    </ol>
+    <Box>
+      <UnorderedList>
+        {contacts.map((contact) => (
+          <ListItem key={contact.id}>
+            <ContactItem contact={contact} onDeleteContact={onDeleteContact} />
+          </ListItem>
+        ))}
+      </UnorderedList>
+    </Box>
   );
 };
 

@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { useSelector } from 'react-redux'; 
-import styles from './ContactForm.module.css';
+import { useSelector } from 'react-redux';
+import {
+  Box,
+  Input,
+  Button,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from '@chakra-ui/react';
 
 const ContactForm = ({ addContact }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
 
   const contacts = useSelector((state) => state.contacts.contacts);
 
@@ -33,7 +39,6 @@ const ContactForm = ({ addContact }) => {
     setName('');
     setNumber('');
 
-
     const updatedContacts = [...contacts, newContact];
     saveContactsToLocalStorage(updatedContacts);
   };
@@ -42,33 +47,38 @@ const ContactForm = ({ addContact }) => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   };
 
-
   return (
-    <form className={styles.contactForm} onSubmit={handleSubmit}>
-      <input
-        className={styles.contactFormInput}
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-ЯёЁіІїЇєЄ]+(([' \-][a-zA-Zа-яА-ЯёЁіІїЇєЄ ])?[a-zA-Zа-яА-ЯёЁіІїЇєЄ]*)*$"
-        title="Ім'я може містити лише літери, апостроф, тире та пробіли. Наприклад, Адріан, Джейкоб Мерсер, Шарль де Батц де Кастельмор д'Артаньян"
-        required
-        placeholder="Ім'я та Прізвище"
-        value={name}
-        onChange={handleNameChange}
-      />
-      <input
-        className={styles.contactFormInput}
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-        title="Номер телефону повинен складатися з цифр і може містити пробіли, тире, круглі дужки та починатися з +"
-        required
-        placeholder="+000 000 000 00 00"
-        value={number}
-        onChange={handleNumberChange}
-      />
-      <button className={styles.contactFormButton} type="submit">Додати контакт</button>
-    </form>
+    <Box as="form" onSubmit={handleSubmit}>
+      <FormControl id="name" isRequired>
+        <FormLabel>Ім'я та Прізвище</FormLabel>
+        <Input
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-ЯёЁіІїЇєЄ]+(([' \-][a-zA-Zа-яА-ЯёЁіІїЇєЄ ])?[a-zA-Zа-яА-ЯёЁіІїЇєЄ]*)*$"
+          title="Ім'я може містити лише літери, апостроф, тире та пробіли. Наприклад, Адріан, Джейкоб Мерсер, Шарль де Батц де Кастельмор д'Артаньян"
+          value={name}
+          onChange={handleNameChange}
+        />
+        <FormErrorMessage>Це поле обов'язкове</FormErrorMessage>
+      </FormControl>
+
+      <FormControl id="number" isRequired>
+        <FormLabel>Номер телефону</FormLabel>
+        <Input
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+          title="Номер телефону повинен складатися з цифр і може містити пробіли, тире, круглі дужки та починатися з +"
+          value={number}
+          onChange={handleNumberChange}
+        />
+        <FormErrorMessage>Це поле обов'язкове</FormErrorMessage>
+      </FormControl>
+
+      <Button type="submit" mt={4} colorScheme="teal">
+        Додати контакт
+      </Button>
+    </Box>
   );
 };
 

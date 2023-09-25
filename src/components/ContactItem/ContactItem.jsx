@@ -1,17 +1,24 @@
 import React from 'react';
-import styles from './ContactItem.module.css'
+import {
+  Box,
+  Text,
+  Button,
+  Flex,
+} from '@chakra-ui/react';
 
 const ContactItem = ({ contact, onDeleteContact }) => {
   const { id, name, number } = contact;
 
   return (
-    <li className={styles.contactItem}>
-      {name}: &nbsp;&nbsp; {number}
-      &nbsp;&nbsp;
-      <button className={styles.contactItemButton} type="button" onClick={() => onDeleteContact(id)}>
-        X
-      </button>
-    </li>
+    <Box borderWidth="1px" borderRadius="lg" p={2} m={2}>
+      <Flex justifyContent="space-between" alignItems="center">
+        <Text fontSize="lg">{name}:</Text>
+        <Text fontSize="lg">{number}</Text>
+        <Button colorScheme="red" size="sm" onClick={() => onDeleteContact(id)}>
+          Видалити
+        </Button>
+      </Flex>
+    </Box>
   );
 };
 

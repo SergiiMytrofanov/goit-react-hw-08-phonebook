@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../redux/authSlice';
+import { Box, Button, FormControl, FormLabel, Input, Text } from '@chakra-ui/react';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const RegistrationForm = () => {
   });
 
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +26,7 @@ const RegistrationForm = () => {
 
     dispatch(registerUser(formData))
       .then(() => {
-        history('/login');
+        navigate('/login');
       })
       .catch((error) => {
         console.error('Registration failed', error);
@@ -33,12 +34,12 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
-      <h2>Реєстрація</h2>
+    <Box>
+      <Text fontSize="xl" fontWeight="bold">Реєстрація</Text>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
+        <FormControl mt={4}>
+          <FormLabel htmlFor="email">Email:</FormLabel>
+          <Input
             type="email"
             id="email"
             name="email"
@@ -46,10 +47,10 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
-        <div>
-          <label htmlFor="password">Пароль:</label>
-          <input
+        </FormControl>
+        <FormControl mt={4}>
+          <FormLabel htmlFor="password">Пароль:</FormLabel>
+          <Input
             type="password"
             id="password"
             name="password"
@@ -57,10 +58,10 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
-        <button type="submit">Зареєструватися</button>
+        </FormControl>
+        <Button mt={4} type="submit" colorScheme="blue">Зареєструватися</Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

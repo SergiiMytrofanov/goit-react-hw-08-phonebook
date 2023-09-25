@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../redux/authSlice.js';
+import { loginUser } from '../redux/authSlice';
+import { Box, Heading, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -33,12 +34,14 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h2>Логін</h2>
+    <Box>
+      <Heading as="h2" size="lg">
+        Логін
+      </Heading>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
+        <FormControl>
+          <FormLabel htmlFor="email">Email:</FormLabel>
+          <Input
             type="email"
             id="email"
             name="email"
@@ -46,10 +49,10 @@ const LoginForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
-        <div>
-          <label htmlFor="password">Пароль:</label>
-          <input
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="password">Пароль:</FormLabel>
+          <Input
             type="password"
             id="password"
             name="password"
@@ -57,10 +60,12 @@ const LoginForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
-        <button type="submit">Увійти</button>
+        </FormControl>
+        <Button type="submit" colorScheme="blue">
+          Увійти
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

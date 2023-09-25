@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
@@ -13,6 +12,7 @@ import {
 import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
 import Filter from '../FilterItem/FilterItem';
+import { Box } from '@chakra-ui/react';
 
 const ContactManager = () => {
   const contacts = useSelector((state) => state.contacts.items);
@@ -64,9 +64,8 @@ const ContactManager = () => {
       : contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-
   return (
-    <div>
+    <Box>
       <ContactForm addContact={handleAddContact} />
       <Filter
         filter={filter}
@@ -75,7 +74,7 @@ const ContactManager = () => {
         searchByPhone={searchByPhone}
       />
       <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
-    </div>
+    </Box>
   );
 };
 

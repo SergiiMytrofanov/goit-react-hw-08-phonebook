@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/authSlice';
 import { Link, Outlet } from 'react-router-dom';
+import { Box, Button, Text } from '@chakra-ui/react';
 
 const UserMenu = () => {
   const user = useSelector((state) => state.auth.user);
@@ -13,20 +13,30 @@ const UserMenu = () => {
   };
 
   return (
-    <div>
+    <Box>
       {user ? (
-        <div>
-          <p>{user.email}</p>
-          <button onClick={handleLogout}>Вийти</button>
-        </div>
+        <Box>
+          <Text>{user.email}</Text>
+          <Button onClick={handleLogout} colorScheme="red">
+            Вийти
+          </Button>
+        </Box>
       ) : (
-        <div>
-          <Link to="/register">Реєстрація</Link>
-          <Link to="/login">Логін</Link>
-        </div>
+        <Box>
+          <Link to="/register">
+            <Button colorScheme="blue" mr={2}>
+              Реєстрація
+            </Button>
+          </Link>
+          <Link to="/login">
+            <Button colorScheme="teal">
+              Логін
+            </Button>
+          </Link>
+        </Box>
       )}
       {<Outlet />}
-    </div>
+    </Box>
   );
 };
 
